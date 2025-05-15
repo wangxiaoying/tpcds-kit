@@ -1,4 +1,4 @@
-select   
+select * from (select 
     sum(ws_net_paid) as total_sum
    ,i_category
    ,i_class
@@ -16,7 +16,8 @@ select
  and d1.d_date_sk = ws_sold_date_sk
  and i_item_sk  = ws_item_sk
  group by rollup(i_category,i_class)
- order by
+) as sub
+order by
    lochierarchy desc,
    case when lochierarchy = 0 then i_category end,
    rank_within_parent

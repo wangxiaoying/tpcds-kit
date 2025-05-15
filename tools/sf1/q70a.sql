@@ -1,4 +1,4 @@
-select  
+select * from (select 
     sum(ss_net_profit) as total_sum
    ,s_state
    ,s_county
@@ -28,7 +28,8 @@ select
                where ranking <= 5
              )
  group by rollup(s_state,s_county)
- order by
+) as sub
+order by
    lochierarchy desc
   ,case when lochierarchy = 0 then s_state end
   ,rank_within_parent
